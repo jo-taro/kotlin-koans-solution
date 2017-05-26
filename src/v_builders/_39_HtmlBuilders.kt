@@ -1,5 +1,6 @@
 package v_builders
 
+import syntax.forWhileLoops.forLoop
 import util.TODO
 import util.doc39
 import v_builders.data.getProducts
@@ -22,19 +23,35 @@ fun todoTask39(): Nothing = TODO(
 fun renderProductTable(): String {
     return html {
         table {
-            tr {
-                td {
+            tr( init= {
+                td (init = {
                     text("Product")
-                }
-                td {
+                }, align = "center")
+                td (init = {
                     text("Price")
-                }
-                td {
+                }, align = "center")
+                td (init = {
                     text("Popularity")
-                }
-            }
+                }, align = "center")
+            }, color = getTitleColor())
+
             val products = getProducts()
-            todoTask39()
+            var row = 0
+
+            for ( p in  products) {
+                tr {
+                    td( init = {
+                        text(p.description)
+                    }, color = getCellColor(row,0), align = "left")
+                    td( init = {
+                        text(p.price)
+                    }, color = getCellColor(row,1), align = "right")
+                    td( init = {
+                        text(p.popularity)
+                    }, color = getCellColor(row,2), align = "center")
+                }
+                row++
+            }
         }
     }.toString()
 }
